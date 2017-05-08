@@ -22,13 +22,20 @@
 
 from Tkinter import *
 
-class orderedFileCopyGUI:
+class mainGUI:
     def __init__(self, master):
 		#Window title
 		self.master = master
 		master.title("Ordered file copy")
 		
-		#Windows position and size
+		#Window menu
+		mainMenu = Menu(master)
+		master.config(menu = mainMenu)
+		fileMenu = Menu(mainMenu)
+		mainMenu.add_cascade(label = "File", menu = fileMenu)
+		fileMenu.add_command(label = "Configuration", command = self.something)
+		
+		#Window position and size
 		windowWidth = 330
 		windowHeight = 150
 		screenWidth = root.winfo_screenwidth()
@@ -67,8 +74,8 @@ class orderedFileCopyGUI:
     def something(self):
         print("Something")
 	#Finished greet
-#Finished orderedFileCopyGUI
+#Finished mainGUI
 
 root = Tk()
-my_gui = orderedFileCopyGUI(root)
+my_gui = mainGUI(root)
 root.mainloop()
