@@ -1,5 +1,5 @@
 '''
- ' orderedFileCopyGUI.py
+ ' mainGui.py
  ' Author: Iker Pedrosa
  ' 
  ' License:
@@ -20,7 +20,9 @@
  ' 
 '''
 
+#Imported modules
 from Tkinter import *
+from configurationGui import *
 
 class mainGUI:
     def __init__(self, master):
@@ -32,8 +34,7 @@ class mainGUI:
 		mainMenu = Menu(master)
 		master.config(menu = mainMenu)
 		fileMenu = Menu(mainMenu)
-		mainMenu.add_cascade(label = "File", menu = fileMenu)
-		fileMenu.add_command(label = "Configuration", command = self.something)
+		mainMenu.add_command(label = "Configuration", command = self.openConfiguration)
 		
 		#Window position and size
 		windowWidth = 330
@@ -71,9 +72,15 @@ class mainGUI:
 		self.buttonCopy.grid(row = 3)
 	#Finished __init__
 
+    def openConfiguration(self):
+		print("Opening configuration window")
+		self.configuration = Toplevel(self.master)
+		self.app = configurationGUI(self.configuration)
+	#Finished openConfiguration
+
     def something(self):
-        print("Something")
-	#Finished greet
+		print("Something")
+	#Finished something
 #Finished mainGUI
 
 root = Tk()
