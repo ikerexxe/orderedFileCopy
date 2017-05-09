@@ -47,15 +47,15 @@ class mainGUI:
 		#Window position and size
 		windowWidth = 600
 		windowHeight = 150
-		screenWidth = root.winfo_screenwidth()
-		screenHeight = root.winfo_screenheight()
+		screenWidth = self.master.winfo_screenwidth()
+		screenHeight = self.master.winfo_screenheight()
 		print("screenWidth %d" % screenWidth)
 		print("screenHeight %d" % screenHeight)
 		windowWidthPosition = (screenWidth - windowWidth) / 2
 		windowHeightPosition = ((screenHeight - windowHeight) / 2) - windowHeight
 		print("windowWidthPosition %d" % windowWidthPosition)
 		print("windowHeightPosition %d" % windowHeightPosition)
-		root.geometry("%dx%d+%d+%d" % (windowWidth, windowHeight, windowWidthPosition, windowHeightPosition))
+		self.master.geometry("%dx%d+%d+%d" % (windowWidth, windowHeight, windowWidthPosition, windowHeightPosition))
 		
 		#Origin information
 		self.textOriginPath = Text(master, height = 1, width = 57, font = ("Helvetica", 11))
@@ -110,7 +110,3 @@ class mainGUI:
 			print("windowDestination '%s'" % windowDestination)
 	#Finished originFileChooser
 #Finished mainGUI
-
-root = Tk()
-my_gui = mainGUI(root)
-root.mainloop()
