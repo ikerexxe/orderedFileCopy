@@ -23,9 +23,17 @@
 #Imported modules
 from Tkinter import *
 from configurationGui import *
+import tkFileDialog
+
+#Global variables
+windowOrigin = "Path of origin"
+windowDestination = "Path of destination"
 
 class mainGUI:
-    def __init__(self, master):
+	def __init__(self, master):
+		global windowOrigin
+		global windowDestination
+		
 		#Window title
 		self.master = master
 		master.title("Ordered file copy")
@@ -37,7 +45,7 @@ class mainGUI:
 		mainMenu.add_command(label = "Configuration", command = self.openConfiguration)
 		
 		#Window position and size
-		windowWidth = 330
+		windowWidth = 600
 		windowHeight = 150
 		screenWidth = root.winfo_screenwidth()
 		screenHeight = root.winfo_screenheight()
@@ -50,17 +58,17 @@ class mainGUI:
 		root.geometry("%dx%d+%d+%d" % (windowWidth, windowHeight, windowWidthPosition, windowHeightPosition))
 		
 		#Origin information
-		self.textOriginPath = Text(master, height = 1, width = 30)
+		self.textOriginPath = Text(master, height = 1, width = 57, font = ("Helvetica", 11))
 		self.textOriginPath.grid(row = 0, column = 0)
-		self.textOriginPath.insert(END, "Path of origin")
-		self.buttonOriginPath = Button(master, text = "...", command = self.something)
+		self.textOriginPath.insert(END, windowOrigin)
+		self.buttonOriginPath = Button(master, text = "...", command = self.originFileChooser)
 		self.buttonOriginPath.grid(row = 0, column = 1)
 		
 		#Destination information
-		self.textDestinationPath = Text(master, height = 1, width = 30)
+		self.textDestinationPath = Text(master, height = 1, width = 57, font = ("Helvetica", 11))
 		self.textDestinationPath.grid(row = 1, column = 0)
-		self.textDestinationPath.insert(END, "Path of destination")
-		self.buttonDestinationPath = Button(master, text = "...", command = self.something)
+		self.textDestinationPath.insert(END, windowDestination)
+		self.buttonDestinationPath = Button(master, text = "...", command = self.destinationFileChooser)
 		self.buttonDestinationPath.grid(row = 1, column = 1)
 		
 		#Copies left information
@@ -72,15 +80,35 @@ class mainGUI:
 		self.buttonCopy.grid(row = 3)
 	#Finished __init__
 
-    def openConfiguration(self):
+	def openConfiguration(self):
 		print("Opening configuration window")
 		self.configuration = Toplevel(self.master)
 		self.app = configurationGUI(self.configuration)
 	#Finished openConfiguration
 
-    def something(self):
+	def something(self):
 		print("Something")
 	#Finished something
+
+	def originFileChooser(self):
+		global windowOrigin
+		
+		windowOrigin = tkFileDialog.askdirectory()
+		if windowOrigin != "":
+			self.textOriginPath.delete('1.0', END)
+			self.textOriginPath.insert(END, windowOrigin)
+			print("windowOrigin '%s'" % windowOrigin)
+	#Finished originFileChooser
+	
+	def destinationFileChooser(self):
+		global windowDestination
+		
+		windowDestination = tkFileDialog.askdirectory()
+		if windowDestination != "":
+			self.textDestinationPath.delete('1.0', END)
+			self.textDestinationPath.insert(END, windowDestination)
+			print("windowDestination '%s'" % windowDestination)
+	#Finished originFileChooser
 #Finished mainGUI
 
 root = Tk()
