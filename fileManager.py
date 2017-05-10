@@ -48,23 +48,24 @@ def copyFile(originPath, destinationPath, file):
 	print("Copied '%s' from '%s' to '%s'" %(file, originPath, destinationPath))
 #Finished copyFile
 
-def main():
+def copyManager():
 	global originPaths
 	global destinationPaths
 	global files
 	cont = 0
-	originPath = ""
-	destinationPath = ""
 	
-	findFilesInPath(originPath, destinationPath)
+	print("copyManager, number of files to copy %d" % len(originPaths))
+	
 	while(cont < len(originPaths)):
 		copyFile(originPaths[cont], destinationPaths[cont], files[cont])
 		cont += 1
 	
-	originPaths.pop(0)
-	destinationPaths.pop(0)
-	files.pop(0)
-#Finished main
-
-if __name__ == "__main__":
-    main()
+	print("copyManager finished copying files")
+	
+	'''
+	At some point memory should be emptied:
+	originPaths.pop(cont)
+	destinationPaths.pop(cont)
+	files.pop(cont)
+	'''
+#Finished copyManager

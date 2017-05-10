@@ -24,10 +24,16 @@
 from Tkinter import *
 from configurationGui import *
 import tkFileDialog
+import fileManager
+import threading
 
 #Global variables
+'''
 windowOrigin = "Path of origin"
 windowDestination = "Path of destination"
+'''
+windowOrigin = "C:/Users/FV4IP00/Desktop/interesante/Scripts/zzzzOrigin/"
+windowDestination = "C:/Users/FV4IP00/Desktop/interesante/Scripts/zzzzzDestination/"
 
 class mainGUI:
 	def __init__(self, master):
@@ -76,7 +82,7 @@ class mainGUI:
 		self.labelFilesLeft.grid(row = 2)
 		
 		#Copy button
-		self.buttonCopy = Button(master, text = "Copy", command = self.something)
+		self.buttonCopy = Button(master, text = "Copy", command = self.copyFiles)
 		self.buttonCopy.grid(row = 3)
 	#Finished __init__
 
@@ -86,14 +92,10 @@ class mainGUI:
 		self.app = configurationGUI(self.configuration)
 	#Finished openConfiguration
 
-	def something(self):
-		print("Something")
-	#Finished something
-
 	def originFileChooser(self):
 		global windowOrigin
 		
-		windowOrigin = tkFileDialog.askdirectory()
+		windowOrigin = tkFileDialog.askdirectory() + "/"
 		if windowOrigin != "":
 			self.textOriginPath.delete('1.0', END)
 			self.textOriginPath.insert(END, windowOrigin)
@@ -103,10 +105,19 @@ class mainGUI:
 	def destinationFileChooser(self):
 		global windowDestination
 		
-		windowDestination = tkFileDialog.askdirectory()
+		windowDestination = tkFileDialog.askdirectory() + "/"
 		if windowDestination != "":
 			self.textDestinationPath.delete('1.0', END)
 			self.textDestinationPath.insert(END, windowDestination)
 			print("windowDestination '%s'" % windowDestination)
 	#Finished originFileChooser
+	
+	def copyFiles(self):
+		global windowOrigin
+		global windowDestination
+		
+		fileManager.findFilesInPath(windowOrigin, windowDestination)
+		copyThread = threading.Thread(target = fileManager.copyManager)
+		copyThread.start()
+	#Finished something
 #Finished mainGUI
