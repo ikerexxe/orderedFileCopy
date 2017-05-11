@@ -22,16 +22,23 @@
 
 #Imported modules
 from Tkinter import *
+import tkFileDialog
+
+#Global variables
+windowDefaultOrigin = "Path of default origin"
 
 class configurationGUI:
-    def __init__(self, master):
+	def __init__(self, master):
+		master.grab_set()
+		#The contrary is master.grab_release()
+		
 		#Window title
 		self.master = master
 		master.title("Configuration menu")
 		
 		#Window position and size
-		windowWidth = 330
-		windowHeight = 100
+		windowWidth = 600
+		windowHeight = 125
 		screenWidth = master.winfo_screenwidth()
 		screenHeight = master.winfo_screenheight()
 		print("screenWidth %d" % screenWidth)
@@ -42,15 +49,52 @@ class configurationGUI:
 		print("windowHeightPosition %d" % windowHeightPosition)
 		master.geometry("%dx%d+%d+%d" % (windowWidth, windowHeight, windowWidthPosition, windowHeightPosition))
 		
+		#Create layouts
+		top_frame = Frame(master, width = 600, height = 50)
+		centre_frame = Frame(master, width = 600, height = 50)
+		bottom_frame = Frame(master, width = 600, height = 50)
+		top_frame.grid(row = 0)
+		centre_frame.grid(row = 1)
+		bottom_frame.grid(row = 2)
+		
+		#Extension information
+		self.labelExtension = Label(top_frame, height = 1, width = 30, text = "File extension to copy:")
+		self.labelExtension.grid(row = 0, column = 0)
+		self.textExtension = Text(top_frame, height = 1, width = 5)
+		self.textExtension.grid(row = 0, column = 1)
+		self.textExtension.insert(END, ".mp3")
+		
 		#Default origin information
-		self.textDefaultOriginPath = Text(master, height = 1, width = 30)
-		self.textDefaultOriginPath.grid(row = 0, column = 0)
-		self.textDefaultOriginPath.insert(END, "Path of origin")
-		self.buttonDefaultOriginPath = Button(master, text = "...", command = self.something)
-		self.buttonDefaultOriginPath.grid(row = 0, column = 1)
+		self.textDefaultOriginPath = Text(centre_frame, height = 1, width = 55)
+		self.textDefaultOriginPath.grid(row = 1, column = 0)
+		self.textDefaultOriginPath.insert(END, windowDefaultOrigin)
+		self.buttonDefaultOriginPath = Button(centre_frame, text = "...", command = self.defaultOriginFileChooser)
+		self.buttonDefaultOriginPath.grid(row = 1, column = 1, padx = 10)
+		
+		#Buttons
+		self.buttonAccept = Button(bottom_frame, text = "Accept", command = self.accept)
+		self.buttonAccept.grid(row = 2, column = 0, padx = 25, pady = 20)
+		self.buttonCancel = Button(bottom_frame, text = "Cancel", command = self.cancel)
+		self.buttonCancel.grid(row = 2, column = 1, padx = 25, pady = 20)
 	#Finished __init__
 
-    def something(self):
-		print("Something")
-	#Finished something
+	def defaultOriginFileChooser(self):
+		global windowOrigin
+		
+		windowDefaultOrigin = tkFileDialog.askdirectory() + "/"
+		if windowDefaultOrigin != "":
+			self.textDefaultOriginPath.delete('1.0', END)
+			self.textDefaultOriginPath.insert(END, windowDefaultOrigin)
+			print("windowDefaultOrigin '%s'" % windowDefaultOrigin)
+	#Finished originFileChooser
+	
+	def accept(self):
+		defaultOrigin = windowDefaultOrigin
+		print("Set defaultOrigin to %s" % defaultOrigin)
+		self.master.destroy()
+	#Finished accept
+	
+	def cancel(self):
+		self.master.destroy()
+	#Finished cancel
 #Finished configurationGUI

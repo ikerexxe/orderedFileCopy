@@ -30,6 +30,7 @@ import threading
 #Global variables
 windowOrigin = "Path of origin"
 windowDestination = "Path of destination"
+defaultOrigin = "Path of default destination"
 
 class mainGUI:
 	def __init__(self, master):
