@@ -28,12 +28,8 @@ import fileManager
 import threading
 
 #Global variables
-'''
 windowOrigin = "Path of origin"
 windowDestination = "Path of destination"
-'''
-windowOrigin = "C:/Users/FV4IP00/Desktop/interesante/Scripts/zzzzOrigin/"
-windowDestination = "C:/Users/FV4IP00/Desktop/interesante/Scripts/zzzzzDestination/"
 
 class mainGUI:
 	def __init__(self, master):
