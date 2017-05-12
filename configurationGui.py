@@ -22,15 +22,20 @@
 
 #Imported modules
 from Tkinter import *
+from fileManager import *
 import tkFileDialog
+import globals
 
 #Global variables
-windowDefaultOrigin = "Path of default origin"
+windowDefaultOrigin = ""
 
 class configurationGUI:
 	def __init__(self, master):
+		global windowDefaultOrigin
+		
 		master.grab_set()
 		#The contrary is master.grab_release()
+		windowDefaultOrigin = globals.selectedDefaultOrigin
 		
 		#Window title
 		self.master = master
@@ -62,7 +67,7 @@ class configurationGUI:
 		self.labelExtension.grid(row = 0, column = 0)
 		self.textExtension = Text(top_frame, height = 1, width = 5)
 		self.textExtension.grid(row = 0, column = 1)
-		self.textExtension.insert(END, ".mp3")
+		self.textExtension.insert(END, globals.extension)
 		
 		#Default origin information
 		self.textDefaultOriginPath = Text(centre_frame, height = 1, width = 55)
@@ -79,7 +84,7 @@ class configurationGUI:
 	#Finished __init__
 
 	def defaultOriginFileChooser(self):
-		global windowOrigin
+		global windowDefaultOrigin
 		
 		windowDefaultOrigin = tkFileDialog.askdirectory() + "/"
 		if windowDefaultOrigin != "":
@@ -89,8 +94,11 @@ class configurationGUI:
 	#Finished originFileChooser
 	
 	def accept(self):
-		defaultOrigin = windowDefaultOrigin
-		print("Set defaultOrigin to %s" % defaultOrigin)
+		global windowDefaultOrigin
+		
+		globals.selectedDefaultOrigin = windowDefaultOrigin
+		globals.extension = self.textExtension.get("1.0", "end-1c")
+		print("selectedDefaultOrigin '%s'" % globals.selectedDefaultOrigin)
 		self.master.destroy()
 	#Finished accept
 	

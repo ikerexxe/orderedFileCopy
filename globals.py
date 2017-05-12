@@ -1,5 +1,5 @@
 '''
- ' main.py
+ ' globals.py
  ' Author: Iker Pedrosa
  ' 
  ' License:
@@ -20,18 +20,8 @@
  ' 
 '''
 
-#Imported modules
-from Tkinter import *
-from mainGui import *
-from fileManager import *
-import globals
-
-def main():
-	checkPaths()
-	root = Tk()
-	mainWindow = mainGUI(root)
-	root.mainloop()
-#Finished main
-
-if __name__ == "__main__":
-    main()
+#Global variables
+selectedOrigin = ""
+selectedDestination = ""
+selectedDefaultOrigin = ""
+extension = ".txt"

@@ -23,19 +23,23 @@
 #Imported modules
 from Tkinter import *
 from configurationGui import *
+from fileManager import *
 import tkFileDialog
-import fileManager
 import threading
 
 #Global variables
-windowOrigin = "Path of origin"
-windowDestination = "Path of destination"
-defaultOrigin = "Path of default destination"
+windowOrigin = ""
+windowDestination = ""
 
 class mainGUI:
 	def __init__(self, master):
 		global windowOrigin
 		global windowDestination
+		
+		print("mainGUI selectedOrigin %s" % globals.selectedOrigin)
+		
+		windowOrigin = globals.selectedOrigin
+		windowDestination = globals.selectedDestination
 		
 		#Window title
 		self.master = master
@@ -96,7 +100,8 @@ class mainGUI:
 		if windowOrigin != "":
 			self.textOriginPath.delete('1.0', END)
 			self.textOriginPath.insert(END, windowOrigin)
-			print("windowOrigin '%s'" % windowOrigin)
+			globals.selectedOrigin = windowOrigin
+			print("selectedOrigin '%s'" % globals.selectedOrigin)
 	#Finished originFileChooser
 	
 	def destinationFileChooser(self):
@@ -106,15 +111,13 @@ class mainGUI:
 		if windowDestination != "":
 			self.textDestinationPath.delete('1.0', END)
 			self.textDestinationPath.insert(END, windowDestination)
-			print("windowDestination '%s'" % windowDestination)
+			globals.selectedDestination = windowDestination
+			print("selectedDestination '%s'" % globals.selectedDestination)
 	#Finished originFileChooser
 	
-	def copyFiles(self):
-		global windowOrigin
-		global windowDestination
-		
-		fileManager.findFilesInPath(windowOrigin, windowDestination)
-		copyThread = threading.Thread(target = fileManager.copyManager)
+	def copyFiles(self):	
+		findFilesInPath(globals.selectedOrigin, globals.selectedDestination)
+		copyThread = threading.Thread(target = copyManager)
 		copyThread.start()
 	#Finished something
 #Finished mainGUI

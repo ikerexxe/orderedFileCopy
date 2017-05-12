@@ -22,21 +22,23 @@
 
 #Imported modules
 import os
+import platform
+import re
+import getpass
+import globals
 from shutil import copyfile
 
 #Global variables
 originPaths = []
 destinationPaths = []
 files = []
-extension = ".txt"
 
 def findFilesInPath(originPath, destinationPath):
 	global originPaths
 	global files
-	global extension
 	
 	for tmpFile in os.listdir(originPath):
-		if tmpFile.endswith(extension):
+		if tmpFile.endswith(globals.extension):
 			originPaths.append(originPath)
 			destinationPaths.append(destinationPath)
 			files.append(tmpFile)
@@ -69,3 +71,53 @@ def copyManager():
 	files.pop(cont)
 	'''
 #Finished copyManager
+
+def checkPaths():
+	osType = detectOS()
+	username = detectUsername()
+	
+	if osType == "Windows":
+		globals.selectedOrigin = "C:/Users/"
+		globals.selectedOrigin += username
+		globals.selectedOrigin += "/Desktop/interesante/Scripts/zzzzOrigin/"
+		globals.selectedDestination = "C:/Users/"
+		globals.selectedDestination += username
+		globals.selectedDestination += "/Desktop/interesante/Scripts/zzzzzDestination/"
+		globals.selectedDefaultOrigin = "C:/Users/"
+		globals.selectedDefaultOrigin += username
+		globals.selectedDefaultOrigin += "/Desktop/interesante/Scripts/"
+		
+		print("selectedOrigin %s" % globals.selectedOrigin)
+	elif osType == "Linux":
+		print("selectedOrigin %s" % selectedOrigin)
+	else:
+		print("Error: unknown os")
+#Finished checkPaths
+
+def detectOS():
+	osraw = platform.platform()
+	print("Raw OS type: %s" % osraw)
+	
+	searchText = re.compile("Windows")
+	osIsWindow = searchText.search(osraw)
+	searchText = re.compile("Linux")
+	osIsLinux = searchText.search(osraw)
+	
+	if osIsWindow != None:
+		osType = "Windows"
+	elif osIsLinux != None:
+		osType = "Linux"
+	else:
+		osType = "Unknown"
+		print("Unknown os")
+	
+	print("OS type %s" %osType)
+	return osType
+#Finished detectOS
+
+def detectUsername():
+	username = getpass.getuser()
+	print("Username: %s" % username)
+	
+	return username
+#Finished detectUsername
