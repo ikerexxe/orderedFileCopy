@@ -86,10 +86,16 @@ def checkPaths():
 		globals.selectedDefaultOrigin = "C:/Users/"
 		globals.selectedDefaultOrigin += username
 		globals.selectedDefaultOrigin += "/Desktop/interesante/Scripts/"
-		
-		print("selectedOrigin %s" % globals.selectedOrigin)
 	elif osType == "Linux":
-		print("selectedOrigin %s" % selectedOrigin)
+		globals.selectedOrigin = "/home/"
+		globals.selectedOrigin += username
+		globals.selectedOrigin += "/Escritorio/orderedFileCopy/zzzzOrigin/"
+		globals.selectedDestination = "/home/"
+		globals.selectedDestination += username
+		globals.selectedDestination += "/Escritorio/orderedFileCopy/zzzzzDestination/"
+		globals.selectedDefaultOrigin = "/home/"
+		globals.selectedDefaultOrigin += username
+		globals.selectedDefaultOrigin += "/Escritorio/orderedFileCopy/"
 	else:
 		print("Error: unknown os")
 #Finished checkPaths
