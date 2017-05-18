@@ -20,8 +20,13 @@
  ' 
 '''
 
+#Imported modules
+from threading import Semaphore
+
 #Global variables
 selectedOrigin = ""
 selectedDestination = ""
 selectedDefaultOrigin = ""
 extension = ".txt"
+copyThreadSemaphore = Semaphore(0)
+stopThread = False

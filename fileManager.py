@@ -26,6 +26,7 @@ import platform
 import re
 import getpass
 import globals
+import time
 from shutil import copyfile
 
 #Global variables
@@ -67,14 +68,16 @@ def copyManager():
 	global files
 	cont = 0
 	
-	print("copyManager, number of files to copy %d" % len(originPaths))
-	
-	while(len(originPaths) > 0):
-		createPath(destinationPaths[cont])
-		copyFile(originPaths[cont], destinationPaths[cont], files[cont])
-		originPaths.pop(cont)
-		destinationPaths.pop(cont)
-		files.pop(cont)
+	while globals.stopThread == False:
+		globals.copyThreadSemaphore.acquire()
+		print("copyManager, number of files to copy %d" % len(originPaths))
+		
+		while(len(originPaths) > 0):
+			createPath(destinationPaths[cont])
+			copyFile(originPaths[cont], destinationPaths[cont], files[cont])
+			originPaths.pop(cont)
+			destinationPaths.pop(cont)
+			files.pop(cont)
 	
 	print("copyManager finished copying files")
 #Finished copyManager

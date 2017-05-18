@@ -25,12 +25,17 @@ from Tkinter import *
 from mainGui import *
 from fileManager import *
 import globals
+import threading
 
 def main():
 	checkPaths()
+	copyThread = threading.Thread(target = copyManager)
+	copyThread.start()
 	root = Tk()
 	mainWindow = mainGUI(root)
 	root.mainloop()
+	globals.stopThread = True
+	globals.copyThreadSemaphore.release()
 #Finished main
 
 if __name__ == "__main__":

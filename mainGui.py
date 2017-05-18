@@ -25,7 +25,6 @@ from Tkinter import *
 from configurationGui import *
 from fileManager import *
 import tkFileDialog
-import threading
 
 #Global variables
 windowOrigin = ""
@@ -117,7 +116,6 @@ class mainGUI:
 	
 	def copyFiles(self):	
 		findFilesInPath(globals.selectedOrigin, globals.selectedDestination)
-		copyThread = threading.Thread(target = copyManager)
-		copyThread.start()
+		globals.copyThreadSemaphore.release()
 	#Finished something
 #Finished mainGUI
