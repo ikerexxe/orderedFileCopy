@@ -40,7 +40,8 @@ def findFilesInPath(originPath, destinationPath):
 	for tmpFile in os.listdir(originPath):
 		if tmpFile.endswith(globals.extension):
 			originPaths.append(originPath)
-			destinationPaths.append(destinationPath)
+			path = originPath.split(globals.selectedDefaultOrigin)[1]
+			destinationPaths.append(destinationPath+path)
 			files.append(tmpFile)
 			print("Added file %s" % tmpFile)
 #Finished findFilesInPath
@@ -49,6 +50,16 @@ def copyFile(originPath, destinationPath, file):
 	copyfile(originPath+file, destinationPath+file)
 	print("Copied '%s' from '%s' to '%s'" %(file, originPath, destinationPath))
 #Finished copyFile
+
+def createPath(destinationPath):
+	folderExist = os.path.isdir(destinationPath)
+	
+	if folderExist == False:
+		os.makedirs(destinationPath)
+		print("Path '%s' created" % destinationPath)
+	else:
+		print("Path '%s' not created" % destinationPath)
+#Finished createPath
 
 def copyManager():
 	global originPaths
@@ -59,6 +70,7 @@ def copyManager():
 	print("copyManager, number of files to copy %d" % len(originPaths))
 	
 	while(cont < len(originPaths)):
+		createPath(destinationPaths[cont])
 		copyFile(originPaths[cont], destinationPaths[cont], files[cont])
 		cont += 1
 	
