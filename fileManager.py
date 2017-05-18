@@ -69,19 +69,14 @@ def copyManager():
 	
 	print("copyManager, number of files to copy %d" % len(originPaths))
 	
-	while(cont < len(originPaths)):
+	while(len(originPaths) > 0):
 		createPath(destinationPaths[cont])
 		copyFile(originPaths[cont], destinationPaths[cont], files[cont])
-		cont += 1
+		originPaths.pop(cont)
+		destinationPaths.pop(cont)
+		files.pop(cont)
 	
 	print("copyManager finished copying files")
-	
-	'''
-	At some point memory should be emptied:
-	originPaths.pop(cont)
-	destinationPaths.pop(cont)
-	files.pop(cont)
-	'''
 #Finished copyManager
 
 def checkPaths():
