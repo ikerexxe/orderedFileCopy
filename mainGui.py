@@ -35,8 +35,6 @@ class mainGUI:
 		global windowOrigin
 		global windowDestination
 		
-		print("mainGUI selectedOrigin %s" % globals.selectedOrigin)
-		
 		windowOrigin = globals.selectedOrigin
 		windowDestination = globals.selectedDestination
 		
@@ -55,12 +53,12 @@ class mainGUI:
 		windowHeight = 150
 		screenWidth = self.master.winfo_screenwidth()
 		screenHeight = self.master.winfo_screenheight()
-		print("screenWidth %d" % screenWidth)
-		print("screenHeight %d" % screenHeight)
+		print("mainGui init: screenWidth %d" % screenWidth)
+		print("mainGui init: screenHeight %d" % screenHeight)
 		windowWidthPosition = (screenWidth - windowWidth) / 2
 		windowHeightPosition = ((screenHeight - windowHeight) / 2) - windowHeight
-		print("windowWidthPosition %d" % windowWidthPosition)
-		print("windowHeightPosition %d" % windowHeightPosition)
+		print("mainGui init: windowWidthPosition %d" % windowWidthPosition)
+		print("mainGui init: windowHeightPosition %d" % windowHeightPosition)
 		self.master.geometry("%dx%d+%d+%d" % (windowWidth, windowHeight, windowWidthPosition, windowHeightPosition))
 		
 		#Origin information
@@ -87,7 +85,6 @@ class mainGUI:
 	#Finished __init__
 
 	def openConfiguration(self):
-		print("Opening configuration window")
 		self.configuration = Toplevel(self.master)
 		self.app = configurationGUI(self.configuration)
 	#Finished openConfiguration
@@ -100,7 +97,6 @@ class mainGUI:
 			self.textOriginPath.delete('1.0', END)
 			self.textOriginPath.insert(END, windowOrigin)
 			globals.selectedOrigin = windowOrigin
-			print("selectedOrigin '%s'" % globals.selectedOrigin)
 	#Finished originFileChooser
 	
 	def destinationFileChooser(self):
@@ -111,10 +107,10 @@ class mainGUI:
 			self.textDestinationPath.delete('1.0', END)
 			self.textDestinationPath.insert(END, windowDestination)
 			globals.selectedDestination = windowDestination
-			print("selectedDestination '%s'" % globals.selectedDestination)
 	#Finished destinationFileChooser
 	
 	def copyFiles(self):
+		writeConfiguration()
 		findFilesInPath(globals.selectedOrigin, globals.selectedDestination)
 		globals.copyThreadSemaphore.release()
 	#Finished copyFiles

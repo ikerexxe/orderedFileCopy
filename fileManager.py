@@ -44,12 +44,12 @@ def findFilesInPath(originPath, destinationPath):
 			path = originPath.split(globals.selectedDefaultOrigin)[1]
 			destinationPaths.append(destinationPath+path)
 			files.append(tmpFile)
-			print("Added file %s" % tmpFile)
+			print("findFilesInPath: added file %s" % tmpFile)
 #Finished findFilesInPath
 
 def copyFile(originPath, destinationPath, file):
 	copyfile(originPath+file, destinationPath+file)
-	print("Copied '%s' from '%s' to '%s'" %(file, originPath, destinationPath))
+	print("copyFile: Copied '%s' from '%s' to '%s'" %(file, originPath, destinationPath))
 #Finished copyFile
 
 def createPath(destinationPath):
@@ -57,9 +57,9 @@ def createPath(destinationPath):
 	
 	if folderExist == False:
 		os.makedirs(destinationPath)
-		print("Path '%s' created" % destinationPath)
+		print("createPath: path '%s' created" % destinationPath)
 	else:
-		print("Path '%s' not created" % destinationPath)
+		print("createPath: path not created")
 #Finished createPath
 
 def copyManager():
@@ -70,7 +70,7 @@ def copyManager():
 	
 	while globals.stopThread == False:
 		globals.copyThreadSemaphore.acquire()
-		print("copyManager, number of files to copy %d" % len(originPaths))
+		print("copyManager: number of files to copy %d" % len(originPaths))
 		
 		while(len(originPaths) > 0):
 			createPath(destinationPaths[cont])
@@ -87,6 +87,11 @@ def checkPaths():
 	
 	if fileExist == False:
 		setDefaultPaths()
+	
+	print("checkPaths: globals.selectedOrigin '%s'" % globals.selectedOrigin)
+	print("checkPaths: globals.selectedDestination '%s'" % globals.selectedDestination)
+	print("checkPaths: globals.selectedDefaultOrigin '%s'" % globals.selectedDefaultOrigin)
+	print("checkPaths: globals.extension '%s'" % globals.extension)
 #Finished checkPaths
 
 def setDefaultPaths():
@@ -113,7 +118,6 @@ def setDefaultPaths():
 
 def detectOS():
 	osraw = platform.platform()
-	print("Raw OS type: %s" % osraw)
 	
 	searchText = re.compile("Windows")
 	osIsWindow = searchText.search(osraw)
@@ -126,15 +130,13 @@ def detectOS():
 		osType = "Linux"
 	else:
 		osType = "Unknown"
-		print("Unknown os")
+		print("detectOS: unknown os")
 	
-	print("OS type %s" %osType)
 	return osType
 #Finished detectOS
 
 def detectUsername():
 	username = getpass.getuser()
-	print("Username: %s" % username)
 	
 	return username
 #Finished detectUsername
@@ -178,8 +180,6 @@ def readConfiguration():
 				globals.extension = line[len(globals.tokenExtension)+3:-1]
 	
 		configurationFile.close()
-		print("readConfiguration selectedDefaultOrigin %s" % globals.selectedDefaultOrigin)
-		print("readConfiguration extension %s" % globals.extension)
 	
 	return fileExist
 #Finished readConfiguration

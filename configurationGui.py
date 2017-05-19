@@ -46,12 +46,12 @@ class configurationGUI:
 		windowHeight = 125
 		screenWidth = master.winfo_screenwidth()
 		screenHeight = master.winfo_screenheight()
-		print("screenWidth %d" % screenWidth)
-		print("screenHeight %d" % screenHeight)
+		print("configurationGui: screenWidth %d" % screenWidth)
+		print("configurationGui: screenHeight %d" % screenHeight)
 		windowWidthPosition = (screenWidth - windowWidth) / 2
 		windowHeightPosition = ((screenHeight - windowHeight) / 2) - windowHeight
-		print("windowWidthPosition %d" % windowWidthPosition)
-		print("windowHeightPosition %d" % windowHeightPosition)
+		print("configurationGui: windowWidthPosition %d" % windowWidthPosition)
+		print("configurationGui: windowHeightPosition %d" % windowHeightPosition)
 		master.geometry("%dx%d+%d+%d" % (windowWidth, windowHeight, windowWidthPosition, windowHeightPosition))
 		
 		#Create layouts
@@ -90,7 +90,6 @@ class configurationGUI:
 		if windowDefaultOrigin != "":
 			self.textDefaultOriginPath.delete('1.0', END)
 			self.textDefaultOriginPath.insert(END, windowDefaultOrigin)
-			print("windowDefaultOrigin '%s'" % windowDefaultOrigin)
 	#Finished originFileChooser
 	
 	def accept(self):
@@ -99,8 +98,8 @@ class configurationGUI:
 		globals.selectedDefaultOrigin = windowDefaultOrigin
 		globals.extension = self.textExtension.get("1.0", "end-1c")
 		writeConfiguration()
-		print("selectedDefaultOrigin '%s'" % globals.selectedDefaultOrigin)
-		print("extension '%s'" % globals.extension)
+		print("accept: globals.selectedDefaultOrigin '%s'" % globals.selectedDefaultOrigin)
+		print("accept: globals.extension '%s'" % globals.extension)
 		self.master.destroy()
 	#Finished accept
 	
