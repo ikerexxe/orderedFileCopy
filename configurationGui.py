@@ -86,7 +86,7 @@ class configurationGUI:
 	def defaultOriginFileChooser(self):
 		global windowDefaultOrigin
 		
-		windowDefaultOrigin = tkFileDialog.askdirectory() + "/"
+		windowDefaultOrigin = tkFileDialog.askdirectory(initialdir = windowDefaultOrigin) + "/"
 		if windowDefaultOrigin != "":
 			self.textDefaultOriginPath.delete('1.0', END)
 			self.textDefaultOriginPath.insert(END, windowDefaultOrigin)
@@ -98,7 +98,9 @@ class configurationGUI:
 		
 		globals.selectedDefaultOrigin = windowDefaultOrigin
 		globals.extension = self.textExtension.get("1.0", "end-1c")
+		writeConfiguration()
 		print("selectedDefaultOrigin '%s'" % globals.selectedDefaultOrigin)
+		print("extension '%s'" % globals.extension)
 		self.master.destroy()
 	#Finished accept
 	

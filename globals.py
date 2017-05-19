@@ -30,3 +30,9 @@ selectedDefaultOrigin = ""
 extension = ".txt"
 copyThreadSemaphore = Semaphore(0)
 stopThread = False
+configurationFileName = ".config"
+tokenEqual = " = "
+tokenOrigin = "MainOrigin"
+tokenDestination = "Destination"
+tokenDefaultOrigin = "DefaultOrigin"
+tokenExtension = "Extension"

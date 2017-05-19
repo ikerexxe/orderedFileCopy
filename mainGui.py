@@ -95,7 +95,7 @@ class mainGUI:
 	def originFileChooser(self):
 		global windowOrigin
 		
-		windowOrigin = tkFileDialog.askdirectory() + "/"
+		windowOrigin = tkFileDialog.askdirectory(initialdir = windowOrigin) + "/"
 		if windowOrigin != "":
 			self.textOriginPath.delete('1.0', END)
 			self.textOriginPath.insert(END, windowOrigin)
@@ -106,7 +106,7 @@ class mainGUI:
 	def destinationFileChooser(self):
 		global windowDestination
 		
-		windowDestination = tkFileDialog.askdirectory() + "/"
+		windowDestination = tkFileDialog.askdirectory(initialdir = windowDestination) + "/"
 		if windowDestination != "":
 			self.textDestinationPath.delete('1.0', END)
 			self.textDestinationPath.insert(END, windowDestination)
