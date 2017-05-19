@@ -112,10 +112,10 @@ class mainGUI:
 			self.textDestinationPath.insert(END, windowDestination)
 			globals.selectedDestination = windowDestination
 			print("selectedDestination '%s'" % globals.selectedDestination)
-	#Finished originFileChooser
+	#Finished destinationFileChooser
 	
-	def copyFiles(self):	
+	def copyFiles(self):
 		findFilesInPath(globals.selectedOrigin, globals.selectedDestination)
 		globals.copyThreadSemaphore.release()
-	#Finished something
+	#Finished copyFiles
 #Finished mainGUI
