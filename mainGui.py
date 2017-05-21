@@ -93,6 +93,7 @@ class mainGUI:
 		global windowOrigin
 		
 		windowOrigin = tkFileDialog.askdirectory(initialdir = windowOrigin) + "/"
+		windowOrigin = windowOrigin.encode("utf-8")
 		if windowOrigin != "":
 			self.textOriginPath.delete('1.0', END)
 			self.textOriginPath.insert(END, windowOrigin)
@@ -103,6 +104,7 @@ class mainGUI:
 		global windowDestination
 		
 		windowDestination = tkFileDialog.askdirectory(initialdir = windowDestination) + "/"
+		windowDestination = windowDestination.encode("utf-8")
 		if windowDestination != "":
 			self.textDestinationPath.delete('1.0', END)
 			self.textDestinationPath.insert(END, windowDestination)

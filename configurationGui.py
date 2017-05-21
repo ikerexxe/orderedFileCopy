@@ -87,6 +87,7 @@ class configurationGUI:
 		global windowDefaultOrigin
 		
 		windowDefaultOrigin = tkFileDialog.askdirectory(initialdir = windowDefaultOrigin) + "/"
+		windowDefaultOrigin = windowDefaultOrigin.encode("utf-8")
 		if windowDefaultOrigin != "":
 			self.textDefaultOriginPath.delete('1.0', END)
 			self.textDefaultOriginPath.insert(END, windowDefaultOrigin)
