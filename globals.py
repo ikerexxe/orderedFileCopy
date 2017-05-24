@@ -36,3 +36,5 @@ tokenOrigin = "MainOrigin"
 tokenDestination = "Destination"
 tokenDefaultOrigin = "DefaultOrigin"
 tokenExtension = "Extension"
+filesLeft = 0
+windowFilesLeft = ""

@@ -31,6 +31,8 @@ windowOrigin = ""
 windowDestination = ""
 
 class mainGUI:
+	labelFilesLeft = ""
+	
 	def __init__(self, master):
 		global windowOrigin
 		global windowDestination
@@ -76,7 +78,9 @@ class mainGUI:
 		self.buttonDestinationPath.grid(row = 1, column = 1)
 		
 		#Copies left information
-		self.labelFilesLeft = Label(master, text = "0 files left to copy")
+		globals.windowFilesLeft = StringVar()
+		globals.windowFilesLeft.set("%d files left to copy" % globals.filesLeft)
+		self.labelFilesLeft = Label(master, textvariable = globals.windowFilesLeft)
 		self.labelFilesLeft.grid(row = 2)
 		
 		#Copy button

@@ -27,6 +27,7 @@ import re
 import getpass
 import globals
 import time
+import mainGui
 from shutil import copyfile
 
 #Global variables
@@ -44,7 +45,10 @@ def findFilesInPath(originPath, destinationPath):
 			path = originPath.split(globals.selectedDefaultOrigin)[1]
 			destinationPaths.append(destinationPath+path)
 			files.append(tmpFile)
+			globals.filesLeft += 1
 			print("findFilesInPath: added file %s" % tmpFile)
+	
+	globals.windowFilesLeft.set("%d files left to copy" % globals.filesLeft)
 #Finished findFilesInPath
 
 def copyFile(originPath, destinationPath, file):
@@ -78,6 +82,8 @@ def copyManager():
 			originPaths.pop(cont)
 			destinationPaths.pop(cont)
 			files.pop(cont)
+			globals.filesLeft -= 1
+			globals.windowFilesLeft.set("%d files left to copy" % globals.filesLeft)
 	
 	print("copyManager finished copying files")
 #Finished copyManager
