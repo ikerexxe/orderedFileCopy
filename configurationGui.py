@@ -27,15 +27,11 @@ import tkFileDialog
 import globals
 
 #Global variables
-windowDefaultOrigin = ""
 
 class configurationGUI:
 	def __init__(self, master):
-		global windowDefaultOrigin
-		
 		master.grab_set()
 		#The contrary is master.grab_release()
-		windowDefaultOrigin = globals.selectedDefaultOrigin
 		
 		#Window title
 		self.master = master
@@ -70,9 +66,10 @@ class configurationGUI:
 		self.textExtension.insert(END, globals.extension)
 		
 		#Default origin information
-		self.textDefaultOriginPath = Text(centre_frame, height = 1, width = 55)
+		globals.windowDefaultOrigin = StringVar()
+		globals.windowDefaultOrigin.set(globals.selectedDefaultOrigin)
+		self.textDefaultOriginPath = Entry(centre_frame, width = 55, font = ("Helvetica", 11), textvariable = globals.windowDefaultOrigin)
 		self.textDefaultOriginPath.grid(row = 1, column = 0)
-		self.textDefaultOriginPath.insert(END, windowDefaultOrigin)
 		self.buttonDefaultOriginPath = Button(centre_frame, text = "...", command = self.defaultOriginFileChooser)
 		self.buttonDefaultOriginPath.grid(row = 1, column = 1, padx = 10)
 		
@@ -84,20 +81,13 @@ class configurationGUI:
 	#Finished __init__
 
 	def defaultOriginFileChooser(self):
-		global windowDefaultOrigin
-		
-		resultPath = tkFileDialog.askdirectory(initialdir = windowDefaultOrigin) + "/"
-		if resultPath != "/":
-			windowDefaultOrigin = resultPath.encode("utf-8")
-			if windowDefaultOrigin != "":
-				self.textDefaultOriginPath.delete('1.0', END)
-				self.textDefaultOriginPath.insert(END, windowDefaultOrigin)
+		resultPath = tkFileDialog.askdirectory(initialdir = globals.selectedDefaultOrigin) + "/"
+		if resultPath != "/" and resultPath != "":
+			globals.selectedDefaultOrigin = resultPath.encode("utf-8")
+			globals.windowDefaultOrigin.set(globals.selectedDefaultOrigin)
 	#Finished originFileChooser
 	
 	def accept(self):
-		global windowDefaultOrigin
-		
-		globals.selectedDefaultOrigin = windowDefaultOrigin
 		globals.extension = self.textExtension.get("1.0", "end-1c")
 		writeConfiguration()
 		print("accept: globals.selectedDefaultOrigin '%s'" % globals.selectedDefaultOrigin)

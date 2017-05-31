@@ -38,3 +38,7 @@ tokenDefaultOrigin = "DefaultOrigin"
 tokenExtension = "Extension"
 filesLeft = 0
 windowFilesLeft = ""
+windowOrigin = ""
+windowDestination = ""
+windowDefaultOrigin = ""
+windowExtension = ""
