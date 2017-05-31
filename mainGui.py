@@ -96,23 +96,26 @@ class mainGUI:
 	def originFileChooser(self):
 		global windowOrigin
 		
-		windowOrigin = tkFileDialog.askdirectory(initialdir = windowOrigin) + "/"
-		windowOrigin = windowOrigin.encode("utf-8")
-		if windowOrigin != "":
-			self.textOriginPath.delete('1.0', END)
-			self.textOriginPath.insert(END, windowOrigin)
-			globals.selectedOrigin = windowOrigin
+		resultPath = tkFileDialog.askdirectory(initialdir = windowOrigin) + "/"
+		print("resultPath %s" % resultPath)
+		if resultPath != "/":
+			windowOrigin = resultPath.encode("utf-8")
+			if windowOrigin != "":
+				self.textOriginPath.delete('1.0', END)
+				self.textOriginPath.insert(END, windowOrigin)
+				globals.selectedOrigin = windowOrigin
 	#Finished originFileChooser
 	
 	def destinationFileChooser(self):
 		global windowDestination
 		
-		windowDestination = tkFileDialog.askdirectory(initialdir = windowDestination) + "/"
-		windowDestination = windowDestination.encode("utf-8")
-		if windowDestination != "":
-			self.textDestinationPath.delete('1.0', END)
-			self.textDestinationPath.insert(END, windowDestination)
-			globals.selectedDestination = windowDestination
+		resultPath = tkFileDialog.askdirectory(initialdir = windowDestination) + "/"
+		if resultPath != "/":
+			windowDestination = resultPath.encode("utf-8")
+			if windowDestination != "":
+				self.textDestinationPath.delete('1.0', END)
+				self.textDestinationPath.insert(END, windowDestination)
+				globals.selectedDestination = windowDestination
 	#Finished destinationFileChooser
 	
 	def copyFiles(self):
