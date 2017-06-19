@@ -154,6 +154,8 @@ def writeConfiguration():
 	configurationFile.write(globals.tokenDestination+globals.tokenEqual+globals.selectedDestination+"\n")
 	configurationFile.write(globals.tokenDefaultOrigin+globals.tokenEqual+globals.selectedDefaultOrigin+"\n")
 	configurationFile.write(globals.tokenExtension+globals.tokenEqual+globals.extension+"\n")
+	configurationFile.write(globals.tokenUsbState+globals.tokenEqual+str(globals.selectedUsbState)+"\n")
+	configurationFile.write(globals.tokenUsbName+globals.tokenEqual+globals.selectedUsbName+"\n")
 	
 	configurationFile.close()
 #Finished writeConfiguration
@@ -184,6 +186,17 @@ def readConfiguration():
 			textFound = searchText.search(line)
 			if textFound != None:
 				globals.extension = line[len(globals.tokenExtension)+3:-1]
+			
+			searchText = re.compile(globals.tokenUsbState)
+			textFound = searchText.search(line)
+			if textFound != None:
+				globals.selectedUsbState = int(line[len(globals.tokenUsbState)+3:-1])
+			
+			searchText = re.compile(globals.tokenUsbName)
+			textFound = searchText.search(line)
+			if textFound != None:
+				globals.selectedUsbName = line[len(globals.tokenUsbName)+3:-1]
+				print("readConfiguration: selectedUsbName %s" % globals.selectedUsbName)
 	
 		configurationFile.close()
 	

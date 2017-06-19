@@ -39,7 +39,7 @@ class configurationGUI:
 		
 		#Window position and size
 		windowWidth = 600
-		windowHeight = 125
+		windowHeight = 150
 		screenWidth = master.winfo_screenwidth()
 		screenHeight = master.winfo_screenheight()
 		print("configurationGui: screenWidth %d" % screenWidth)
@@ -53,15 +53,17 @@ class configurationGUI:
 		#Create layouts
 		top_frame = Frame(master, width = 600, height = 50)
 		centre_frame = Frame(master, width = 600, height = 50)
+		below_frame = Frame(master, width = 600, height = 50)
 		bottom_frame = Frame(master, width = 600, height = 50)
 		top_frame.grid(row = 0)
 		centre_frame.grid(row = 1)
-		bottom_frame.grid(row = 2)
+		below_frame.grid(row = 2)
+		bottom_frame.grid(row = 3)
 		
 		#Extension information
-		self.labelExtension = Label(top_frame, height = 1, width = 30, text = "File extension to copy:")
+		self.labelExtension = Label(top_frame, height = 1, width = 30, font = ("Helvetica", 11), text = "File extension to copy:")
 		self.labelExtension.grid(row = 0, column = 0)
-		self.textExtension = Text(top_frame, height = 1, width = 5)
+		self.textExtension = Text(top_frame, height = 1, width = 5, font = ("Helvetica", 11))
 		self.textExtension.grid(row = 0, column = 1)
 		self.textExtension.insert(END, globals.extension)
 		
@@ -72,6 +74,21 @@ class configurationGUI:
 		self.textDefaultOriginPath.grid(row = 1, column = 0)
 		self.buttonDefaultOriginPath = Button(centre_frame, text = "...", command = self.defaultOriginFileChooser)
 		self.buttonDefaultOriginPath.grid(row = 1, column = 1, padx = 10)
+		
+		#Destination by USB information
+		self.labelUsb = Label(below_frame, width = 15, font = ("Helvetica", 11), text = "Destination by USB")
+		self.labelUsb.grid(row = 0, column = 0)
+		self.localUsbState = IntVar()
+		self.localUsbState.set(globals.selectedUsbState)
+		self.checkboxUsb = Checkbutton(below_frame, command = self.activateUsbName, variable = self.localUsbState, onvalue=1, offvalue=0)
+		self.checkboxUsb.grid(row = 0, column = 1)
+		self.textUsb = Text(below_frame, height = 1, width = 25, font = ("Helvetica", 11), state = "disabled")
+		self.textUsb.grid(row = 0, column = 2)
+		if globals.selectedUsbState == 1:
+			self.textUsb.configure(state = "normal")
+		else:
+			self.textUsb.configure(state = "disabled")
+		self.textUsb.insert(END, globals.selectedUsbName)
 		
 		#Buttons
 		self.buttonAccept = Button(bottom_frame, text = "Accept", command = self.accept)
@@ -89,11 +106,23 @@ class configurationGUI:
 	
 	def accept(self):
 		globals.extension = self.textExtension.get("1.0", "end-1c")
+		globals.selectedUsbName = self.textUsb.get("1.0", "end-1c")
 		writeConfiguration()
 		print("accept: globals.selectedDefaultOrigin '%s'" % globals.selectedDefaultOrigin)
 		print("accept: globals.extension '%s'" % globals.extension)
 		self.master.destroy()
 	#Finished accept
+	
+	def activateUsbName(self):
+		if self.localUsbState.get() == 1:
+			globals.selectedUsbState = 1
+			self.textUsb.configure(state = "normal")
+			self.textUsb.insert(END, globals.selectedUsbName)
+		else:
+			globals.selectedUsbState = 0
+			self.textUsb.delete("1.0", END)
+			self.textUsb.configure(state = "disabled")
+	#Finished activateUsbName
 	
 	def cancel(self):
 		self.master.destroy()
