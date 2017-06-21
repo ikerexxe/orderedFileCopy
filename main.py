@@ -24,6 +24,7 @@
 from Tkinter import *
 from mainGui import *
 from fileManager import *
+from usbDetection import *
 import globals
 import threading
 
@@ -31,6 +32,8 @@ def main():
 	checkPaths()
 	copyThread = threading.Thread(target = copyManager)
 	copyThread.start()
+	usbThread = threading.Thread(target = usbDetector)
+	usbThread.start()
 	root = Tk()
 	mainWindow = mainGUI(root)
 	root.mainloop()
