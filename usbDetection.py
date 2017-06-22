@@ -55,9 +55,9 @@ def usbDetector():
 				searchText = re.compile(globals.selectedUsbName)
 				usbFound = searchText.search(point[1])
 
-				if usbFound != None and globals.selectedDestination != point[1]:
+				if usbFound != None and globals.selectedDestination != point[1]+"/":
 					print("usbDetector: Found  mount point in %s" % point[1])
-					globals.selectedDestination = point[1]
+					globals.selectedDestination = point[1]+"/"
 					globals.windowDestination.set(globals.selectedDestination)
 		
 		time.sleep(sleepTime)
