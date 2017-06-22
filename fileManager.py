@@ -46,6 +46,8 @@ def findFilesInPath(originPath, destinationPath):
 			destinationPaths.append(destinationPath+path)
 			files.append(tmpFile)
 			globals.filesLeft += 1
+			if globals.filesLeft > 0:
+				globals.mainWindow.labelFilesLeft.configure(background="red")
 			print("findFilesInPath: added file %s" % tmpFile)
 	
 	globals.windowFilesLeft.set("%d files left to copy" % globals.filesLeft)
@@ -83,6 +85,8 @@ def copyManager():
 			destinationPaths.pop(cont)
 			files.pop(cont)
 			globals.filesLeft -= 1
+			if globals.filesLeft == 0:
+				globals.mainWindow.labelFilesLeft.configure(background="green")
 			globals.windowFilesLeft.set("%d files left to copy" % globals.filesLeft)
 	
 	print("copyManager finished copying files")

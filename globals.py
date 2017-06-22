@@ -24,6 +24,7 @@
 from threading import Semaphore
 
 #Global variables
+mainWindow = ""
 selectedOrigin = ""
 selectedDestination = ""
 selectedDefaultOrigin = ""

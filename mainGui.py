@@ -76,6 +76,7 @@ class mainGUI:
 		globals.windowFilesLeft.set("%d files left to copy" % globals.filesLeft)
 		self.labelFilesLeft = Label(master, textvariable = globals.windowFilesLeft)
 		self.labelFilesLeft.grid(row = 2)
+		self.labelFilesLeft.configure(background="green")
 		
 		#Copy button
 		self.buttonCopy = Button(master, text = "Copy", command = self.copyFiles)

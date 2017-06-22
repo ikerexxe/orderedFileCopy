@@ -35,7 +35,7 @@ def main():
 	usbThread = threading.Thread(target = usbDetector)
 	usbThread.start()
 	root = Tk()
-	mainWindow = mainGUI(root)
+	globals.mainWindow = mainGUI(root)
 	root.mainloop()
 	globals.stopThread = True
 	globals.copyThreadSemaphore.release()
