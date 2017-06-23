@@ -39,7 +39,9 @@ def findFilesInPath(originPath, destinationPath):
 	global originPaths
 	global files
 	
-	for tmpFile in os.listdir(originPath):
+	orderedFiles = orderFiles(os.listdir(originPath))
+	
+	for tmpFile in orderedFiles:
 		if tmpFile.endswith(globals.extension):
 			originPaths.append(originPath)
 			path = originPath.split(globals.selectedDefaultOrigin)[1]
@@ -52,6 +54,50 @@ def findFilesInPath(originPath, destinationPath):
 	
 	globals.windowFilesLeft.set("%d files left to copy" % globals.filesLeft)
 #Finished findFilesInPath
+
+def orderFiles(files):
+	filters = [" ", "-", "_", "."]
+	fileList = []
+	
+	print("orderFiles: files %s" % files)
+	print("orderFiles: filters %s" % filters)
+	
+	for file in files:
+		for filter in filters:
+			filterPosition = file.find(filter)
+			if filterPosition > 0 and filterPosition < 4:
+				fileList.append(int(file[:filterPosition]))
+				
+	print("orderFiles: fileList %s" % fileList)
+	orderedFiles = ordering(files, fileList)
+	print("orderFiles: orderedFileList %s" % fileList)
+	print("orderFiles: orderedFiles %s" % orderedFiles)
+	
+	return orderedFiles
+#Finished orderFiles
+
+def ordering(files, fileList):
+	cont1 = 0
+	cont2 = 0
+	
+	while(cont1 < (len(fileList) - 1)):
+		cont2 = cont1 + 1
+		while(cont2 < len(fileList)):
+			if fileList[cont1] > fileList[cont2]:
+				#Ordering file names
+				tmpFileList = fileList[cont1]
+				fileList[cont1] = fileList[cont2]
+				fileList[cont2] = tmpFileList
+				
+				#Ordering files
+				tmpFiles = files[cont1]
+				files[cont1] = files[cont2]
+				files[cont2] = tmpFiles
+			cont2 += 1
+		cont1 += 1
+		
+	return files
+#Finished ordering
 
 def copyFile(originPath, destinationPath, file):
 	copyfile(originPath+file, destinationPath+file)
