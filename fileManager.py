@@ -38,8 +38,13 @@ files = []
 def findFilesInPath(originPath, destinationPath):
 	global originPaths
 	global files
+	filesToOrder = []
 	
-	orderedFiles = orderFiles(os.listdir(originPath))
+	for tmpFile in os.listdir(originPath):
+		if tmpFile.endswith(globals.extension):
+			filesToOrder.append(tmpFile)
+
+	orderedFiles = orderFiles(filesToOrder)
 	
 	for tmpFile in orderedFiles:
 		if tmpFile.endswith(globals.extension):
@@ -66,6 +71,7 @@ def orderFiles(files):
 		for filter in filters:
 			filterPosition = file.find(filter)
 			if filterPosition > 0 and filterPosition < 4:
+				print("orderFiles: file[:filterPosition] %s" % file[:filterPosition])
 				fileList.append(int(file[:filterPosition]))
 				
 	print("orderFiles: fileList %s" % fileList)
