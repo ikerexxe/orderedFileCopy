@@ -68,11 +68,16 @@ def orderFiles(files):
 	print("orderFiles: filters %s" % filters)
 	
 	for file in files:
+		bestFilterPosition = 4
+		
 		for filter in filters:
-			filterPosition = file.find(filter)
-			if filterPosition > 0 and filterPosition < 4:
-				print("orderFiles: file[:filterPosition] %s" % file[:filterPosition])
-				fileList.append(int(file[:filterPosition]))
+			newFilterPosition = file.find(filter)
+			
+			if newFilterPosition > 0 and newFilterPosition < bestFilterPosition:
+				bestFilterPosition = newFilterPosition
+				
+		if bestFilterPosition > 0 and bestFilterPosition < 4:
+			fileList.append(int(file[:bestFilterPosition]))
 				
 	print("orderFiles: fileList %s" % fileList)
 	orderedFiles = ordering(files, fileList)
