@@ -1,3 +1,4 @@
+#!/usr/bin/python
 '''
  ' main.py
  ' Author: Iker Pedrosa
